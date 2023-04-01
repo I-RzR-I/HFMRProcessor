@@ -1,0 +1,79 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <TargetFrameworks>netstandard2.1</TargetFrameworks>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <Authors>RzR</Authors>
+    <Copyright>RzR</Copyright>
+    <Owners>RzR</Owners>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageIcon>PackageIcon.png</PackageIcon>
+    <NoWarn>$(NoWarn);CS8032</NoWarn>
+    <EnableNETAnalyzers>false</EnableNETAnalyzers>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <PackageTags>HangFire;MediatR;Mediator;Background;Process;Out-Of-Process;Invoke;Execute;Task;Processor</PackageTags>
+    <RepositoryUrl>https://github.com/I-RzR-I/HFMRProcessor</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/I-RzR-I/HFMRProcessor</PackageProjectUrl>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <PackageDescription>Execute a background processes in out-of-process. As you may have a requirement to implement a document generation (or any other bulk operations) which can cost a lot of time and you don't want to block current UI and allow user to navigate or do something else in your application, here you can see an approch how to implement this stuff.</PackageDescription>
+    <Summary>Execute a background processes in out-of-process. As you may have a requirement to implement a document generation (or any other bulk operations) which can cost a lot of time and you don't want to block current UI and allow user to navigate or do something else in your application, here you can see an approch how to implement this stuff.</Summary>
+    <PackageTitle>RzR.Services.HFMRProcessor (HFMRProcessor)</PackageTitle>
+    <Title>RzR.Services.HFMRProcessor (HFMRProcessor)</Title>
+    <LangVersion>9.0</LangVersion>
+    <RepositoryType>GIT</RepositoryType>
+    <Language>en-US</Language>
+    <PackageIconUrl />
+    <DebugType>Full</DebugType>
+    <!--<PackageReadmeFile>README.md</PackageReadmeFile>-->
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AggregatedGenericResultMessage" Version="1.1.0" />
+    <PackageReference Include="MediatR" Version="11.1.0" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Hangfire.AspNetCore" Version="1.7.34" />
+    <PackageReference Include="Hangfire.PostgreSql" Version="1.19.12" />
+    <PackageReference Include="Hangfire.SqlServer" Version="1.7.34" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="..\shared\GeneralAssemblyInfo.cs" Link="Properties\GeneralAssemblyInfo.cs" />
+  </ItemGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\assets\PackageIcon.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+    <None Include="..\..\README.md">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+    <None Include="..\..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+    <None Include="..\.editorconfig" />
+  </ItemGroup>
+
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties BuildVersion_StartDate="2023/03/30" />
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec
+      Command="PowerShell -NoProfile -ExecutionPolicy unrestricted -file $(SolutionDir)../build/pack.ps1 $(ConfigurationName)" />
+  </Target>
+</Project>
