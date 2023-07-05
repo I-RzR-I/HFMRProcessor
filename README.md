@@ -4,12 +4,13 @@
 [![Nuget Downloads](https://img.shields.io/nuget/dt/HFMRProcessor.svg?style=flat&logo=nuget)](https://www.nuget.org/packages/HFMRProcessor)
 
 
-This repository has represented a way to implement **background processes in out-of-process**. As you may have a requirement to implement a document generation (or any other bulk operations) which can cost a lot of time and you don't want to block current UI and allow user to navigate or do something else in your application, here you can see an approch how to implement this stuff.
+This repository has represented a way to implement **background processes in out-of-process**. As you may have a requirement to implement a document generation (or any other bulk operations) which can cost a lot of time and you don't want to block the current UI and allow users to navigate or do something else in your application, here you can see an approach how to implement this stuff.
 
-For current implementation are used (maybe known library for you) [`HangFire`](https://github.com/HangfireIO/Hangfire) and [`MediatR`](https://github.com/jbogard/MediatR).
+For current implementation are used (maybe a known library for you) [`HangFire`](https://github.com/HangfireIO/Hangfire) and [`MediatR`](https://github.com/jbogard/MediatR).
 
 * `HangFire` -> For background process/request execution.
-* `MediatR` -> Mediator for message/requests processing.
+* `MediatR` -> Mediator for message/request processing.
+
 
 
 For more information about that, follow the info from using doc.
