@@ -74,11 +74,11 @@ namespace HFMRProcessor
             if (!cfgServerCheckInterval.IsSuccess)
                 throw new ArgumentOutOfRangeException(cfgServerCheckInterval.GetFirstMessage());
 
-            var heartbeatInterval = cfgHeartbeatInterval.Response.IsNullOrEmpty()
+            var heartbeatInterval = string.IsNullOrEmpty(cfgHeartbeatInterval.Response)
                 ? TimeSpan.FromMinutes(1)
                 : TimeSpan.FromMinutes(long.Parse(cfgHeartbeatInterval.Response));
 
-            var serverCheckInterval = cfgServerCheckInterval.Response.IsNullOrEmpty()
+            var serverCheckInterval = string.IsNullOrEmpty(cfgServerCheckInterval.Response)
                 ? TimeSpan.FromMinutes(1)
                 : TimeSpan.FromMinutes(long.Parse(cfgServerCheckInterval.Response));
 
@@ -99,7 +99,7 @@ namespace HFMRProcessor
         public static void UseCustomHangFireDashboard(
             this IApplicationBuilder app, string customUrl,
             IReadOnlyCollection<IDashboardAsyncAuthorizationFilter> filters)
-            => app.UseHangfireDashboard(customUrl.IsNullOrEmpty()
+            => app.UseHangfireDashboard(string.IsNullOrEmpty(customUrl)
                     ? "/hangfire"
                     : customUrl,
                 new DashboardOptions { AsyncAuthorization = filters });

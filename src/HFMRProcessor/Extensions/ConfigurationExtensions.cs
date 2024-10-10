@@ -20,7 +20,6 @@
 using System;
 using AggregatedGenericResultMessage;
 using AggregatedGenericResultMessage.Abstractions;
-using AggregatedGenericResultMessage.Extensions.Common;
 using AggregatedGenericResultMessage.Extensions.Result;
 using HFMRProcessor.Enums;
 using Microsoft.Extensions.Configuration;
@@ -68,7 +67,7 @@ namespace HFMRProcessor.Extensions
             {
                 var connection = configuration ["HangFireOptions:StorageConnectionString"];
 
-                return connection.IsNullOrEmpty()
+                return string.IsNullOrEmpty(connection)
                     ? Result<string>.Failure("Check HangFire connection string")
                     : Result<string>.Success(connection);
             }
