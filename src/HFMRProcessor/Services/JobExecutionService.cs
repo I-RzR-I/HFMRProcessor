@@ -64,7 +64,7 @@ namespace HFMRProcessor.Services
                 {
                     var job = connection.GetRecurringJobs().FirstOrDefault(p => p.Id == jobId);
 
-                    if (!job.IsNull())
+                    if (job != null)
                     {
                         var lastRun = JobStorage.Current.GetMonitoringApi().SucceededJobs(0, int.Parse(job?.LastJobId!))
                             .Where(x => x.Value.Job.Args [0].ToString() == jobId)
